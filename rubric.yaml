@@ -1,0 +1,86 @@
+
+name: "Prompt Engineering Checker (RTF-CO + SC)"
+version: "1.0"
+language: "id"
+weights:
+  role: 2
+  task: 2
+  format: 2
+  constraints: 2
+  orientation: 1
+  verification: 2
+  scope_focus: 1
+  anti_hallucination: 1
+  total: 13
+rules:
+  role:
+    any_of:
+      - "Anda adalah"
+      - "Role:"
+  task:
+    any_of:
+      - "Tugas:"
+      - "Task:"
+      - "Susun forecast"
+      - "Hitung safety stock"
+      - "Rencana pengiriman"
+  format:
+    any_of:
+      - "Format:"
+      - "tabel"
+      - "JSON"
+  constraints:
+    any_of:
+      - "Constraints:"
+      - "Batasan:"
+      - "jangan gunakan data di luar"
+      - "jika tidak tahu, katakan tidak tahu"
+      - "kapasitas"
+      - "MOQ"
+      - "SLA"
+      - "CAGR"
+  orientation:
+    any_of:
+      - "Orientation:"
+      - "Contoh:"
+      - "contoh mini"
+      - "langkah"
+      - "konteks"
+  verification:
+    any_of:
+      - "Verifikasi"
+      - "cek silang"
+      - "justifikasi"
+      - "tunjukkan asumsi"
+      - "validasi"
+  scope_focus:
+    any_of:
+      - "PCR"
+      - "Replacement"
+      - "Indonesia"
+      - "SKU"
+      - "Routing"
+      - "PO"
+      - "Purchase Order"
+      - "Safety Stock"
+      - "Demand Planner"
+  anti_hallucination:
+    any_of:
+      - "jangan gunakan data di luar"
+      - "hanya gunakan data yang diberikan"
+      - "jika tidak tahu, katakan tidak tahu"
+      - "kutip sumber"
+thresholds:
+  pass_score: 10   # minimal score to consider 'OK'
+display:
+  show_breakdown: true
+  show_tips: true
+tips:
+  role: "Mulai dengan Role, misal: 'Anda adalah Demand Planner…'"
+  task: "Tulis tugas spesifik + metrik (mis: Y+1, 3 skenario)"
+  format: "Kunci format tabel/JSON agar mudah diaudit"
+  constraints: "Nyatakan rumus/kapasitas/periode dan larangan sumber luar"
+  orientation: "Sertakan contoh mini atau langkah singkat"
+  verification: "Minta 3 cek silang: histori vs asumsi vs kapasitas"
+  scope_focus: "Sebut konteks SC (PCR, Replacement, Indonesia, SKU, dsb)"
+  anti_hallucination: "Tambahkan guardrails anti-halusinasi yang eksplisit"
